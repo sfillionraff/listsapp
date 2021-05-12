@@ -11,15 +11,34 @@ var corsOptions = {
   origin: "http://localhost:8000",
 };
 
+const {
+  checkDuplicates,
+  verifyToken,
+  signUp,
+  signIn,
+  createToken,
+} = require("./handlers");
+
 express()
   .use(cors(corsOptions))
   .use(express.urlencoded({ extended: true }))
   .use(express.json())
+
+  // POST request to authenticate
+  .post("/auth", createToken)
   // POST request for new account
-  .post("/auth/new")
+  // .post("/auth/new", {
+  //   checkDuplicates,
+  //   verifyToken,
+  //   signUp,
+  // })
 
   // POST request for existing account
-  .post("/auth/signin")
+  // .post("/auth/signin", {
+  //   checkDuplicates,
+  //   verifyToken,
+  //   signIn,
+  // })
 
   // GET request
   .get("/", (req, res) => {
